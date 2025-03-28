@@ -1,7 +1,105 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
 
 * {
     padding: 0;
     margin: 0;
-    font-family: "IBM Plex Sans Arabic";
+    font-family: "Tajawal";
+}
+
+/* Navbar styling */
+.nav-bar {
+    background-color: #6a00ff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    gap: 4px;
+}
+
+.nav-bar-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.slogan {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    align-content: center;
+    background-color: white;
+    color: #6a00ff;
+    margin: 10px 0;
+    padding: 0 10px;
+    border-radius: 32px;
+}
+
+.nav-bar-item {
+    display: inline;
+    align-content: center;
+    font-size: 1.125rem;
+    transition: background-color 100ms ease-in;
+}
+
+.nav-bar-item a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 16px 8px;
+}
+
+.nav-bar-item:hover {
+    background-color: #5d03dc;
+}
+
+/* Styling welcome section */
+.welcome-section {
+    padding: 12px 0 24px;
+    display: flex;
+    background-color: rgb(177, 173, 230);
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    gap: 12px;
+}
+
+.welcome-section h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #6a00ff;
+}
+
+.welcome-section form {
+    display: flex;
+    justify-content: center;
+}
+
+.welcome-section input {
+    width: 40%;
+    height: 36px;
+    background-color: #e1e1e1;
+    padding: 0 4px;
+    font-size: 1.2rem;
+    padding: 4px 4px;
+    border-style: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.welcome-section input:focus {
+    outline: none;
+}
+
+.welcome-section button {
+    font-size: 1.2rem;
+    padding: 0 10px;
+    color: white;
+    background-color: #6a00ff;
+    border-style: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.welcome-section button:hover {
+    cursor: pointer;
+    background-color: #5d03dc;
 }

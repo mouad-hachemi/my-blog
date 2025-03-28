@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html lang="ara" dir="rtl">
+<html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.css">
+    <script defer src="js/index.js"></script>
     <title>مدونة شاهين</title>
 </head>
+
 <body>
-    <h1 class="title"><%= message %></h1>
+    <div class="nav-bar">
+        <span class="slogan">شاهين</span>
+        <ul class="nav-bar-actions">
+            <li class="nav-bar-item"><a href="">الرئيسية</a></li>
+            <li class="nav-bar-item"><a href="">برمجة</a></li>
+            <li class="nav-bar-item"><a href="">لينكس</a></li>
+            <li class="nav-bar-item"><a href="">برمجيات حرة</a></li>
+        </ul>
+    </div>
+    <div class="welcome-section">
+        <h1 id="welcome-message"></h1>
+        <form action="">
+            <input type="text" name="search" id="search" placeholder="شغل دماغك">
+            <button type="submit">إبحث</button>
+        </form>
+    </div>
 </body>
+
 </html>
