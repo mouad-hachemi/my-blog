@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import express from 'express';
-import { title } from 'process';
+import { db, initDb } from './datastore/db.js';
 
 // Set absolute path of the current working directory.
 const __dirname = path.resolve();
@@ -9,32 +9,38 @@ const __dirname = path.resolve();
 dotenv.config();
 
 // Create app.
-const app = express();
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('view engine', 'ejs');
+(async () => {
+    // Initialize database
+    await initDb();
 
-const PORT = process.env.PORT;
+    const app = express();
+    app.use(express.json());
+    app.use(express.static(path.join(__dirname, 'public')))
+    app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    const allPosts = [
-        {
-            title: 'منشور 1',
-            content: 'هذا النص يمكن أن يتم تركيبه على أي تصميم دون مشكلة فلن يبدو وكأنه نص منسوخ، غير منظم، غير منسق، أو حتى غير مفهوم.لأنه مازال نصاً بديلاً ومؤقتاً.',
-        },
-        {
-            title: 'منشور 2',
-            content: 'هذا النص يمكن أن يتم تركيبه على أي تصميم دون مشكلة فلن يبدو وكأنه نص منسوخ، غير منظم، غير منسق، أو حتى غير مفهوم.لأنه مازال نصاً بديلاً ومؤقتاً.',
-        },
-        {
-            title: 'منشور 3',
-            content: 'هذا النص يمكن أن يتم تركيبه على أي تصميم دون مشكلة فلن يبدو وكأنه نص منسوخ، غير منظم، غير منسق، أو حتى غير مفهوم.لأنه مازال نصاً بديلاً ومؤقتاً.',
+    const PORT = process.env.PORT;
+
+    // Endpoints (Routes)
+    app.get('/', async (req, res) => {
+        const allPosts = await db.all('SELECT * FROM posts');
+        res.render('index.ejs', { allPosts });
+    });
+
+    app.post('/admin/add-post', async (req, res) => {
+        try {
+            const { title, content } = req.body;
+            await db.run('INSERT INTO posts (title, content) VALUES (:title, :content)', {
+                ':title': title,
+                ':content': content,
+            });
+            res.status(201).json("Post Added!");
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500);
         }
+    });
 
-    ];
-    res.render('index.ejs', { allPosts });
-});
-
-app.listen(PORT, () => {
-    console.log('http://localhost:' + PORT);
-});
+    app.listen(PORT, () => {
+        console.log('http://localhost:' + PORT);
+    });
+})();
