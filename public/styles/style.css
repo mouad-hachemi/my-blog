@@ -6,6 +6,12 @@
     font-family: "Tajawal";
 }
 
+body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Navbar styling */
 .nav-bar {
     background-color: #6a00ff;
@@ -102,4 +108,55 @@
 .welcome-section button:hover {
     cursor: pointer;
     background-color: #5d03dc;
+}
+
+/* All posts section styling */
+.all-posts {
+    flex: 1;
+    display: grid;
+    background-color: #e4e1e8;
+    padding: 12px 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.post {
+    background-color: white;
+}
+
+.post-content {
+    padding: 0 12px 12px 12px;
+}
+
+.post img {
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Footer styling */
+
+.footer {
+    background-color: #13002d;
+    display: flex;
+    padding: 12px 12px;
+    align-items: center;
+    color: white;
+}
+
+.footer span {
+    padding: 0 6px;
+}
+
+.footer hr {
+    flex-grow: 1;
+    height: 2px;
+    border: none;
+}
+
+hr.left {
+    background: linear-gradient(to right, transparent, white);
+}
+
+hr.right {
+    background: linear-gradient(to left, transparent, white);
 }

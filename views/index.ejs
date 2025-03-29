@@ -26,6 +26,23 @@
             <button type="submit">إبحث</button>
         </form>
     </div>
+    <div class="all-posts">
+        <% allPosts.forEach(post=> { %>
+            <div class="post">
+                <img src="https://t4.ftcdn.net/jpg/08/22/19/39/360_F_822193991_AN71gkYWnLq6monTaKvYUDbuMOzzluRx.jpg"
+                    alt="" />
+                <div class="post-content">
+                    <h1><%= post.title %></h1>
+                    <p><%= post.content %></p>
+                </div>
+            </div>
+            <% }) %>
+    </div>
+    <div class="footer">
+        <hr class="right" />
+        <span>مدونة شاهين الرقمية</span>
+        <hr class="left" />
+    </div>
 </body>
 
 </html>
