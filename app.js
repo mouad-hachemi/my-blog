@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import express from 'express';
 import { db, initDb } from './datastore/db.js';
+import adminRoute from './routes/admin.js';
 
 // Set absolute path of the current working directory.
 const __dirname = path.resolve();
@@ -26,19 +27,7 @@ dotenv.config();
         res.render('index.ejs', { allPosts });
     });
 
-    app.post('/admin/add-post', async (req, res) => {
-        try {
-            const { title, content } = req.body;
-            await db.run('INSERT INTO posts (title, content) VALUES (:title, :content)', {
-                ':title': title,
-                ':content': content,
-            });
-            res.status(201).json("Post Added!");
-        } catch (error) {
-            console.error(error.message);
-            return res.status(500);
-        }
-    });
+    app.use('/admin', adminRoute);
 
     app.listen(PORT, () => {
         console.log('http://localhost:' + PORT);
