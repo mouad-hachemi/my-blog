@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/admin-style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
+    <title>صفحة الإشراف</title>
+</head>
+
+<body>
+    <div class="dashboard">
+        <span class="slogan">صفحة الإشراف</span>
+        <hr />
+        <div class="actions">
+            <div class="action">
+                <i class="iconoir-home"></i>
+                <a href="">الرئيسية</a>
+            </div>
+            <div class="action">
+                <i class="iconoir-page-plus"></i>
+                <a href="">منشور جديد</a>
+            </div>
+            <div class="action">
+                <i class="iconoir-multiple-pages"></i>
+                <a href="">مسودة</a>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="search-section">
+            <form>
+                <input type="text" name="search-input" id="search-input" placeholder="أدخل عنوان المنشور ..">
+                <button type="submit">إبحث</button>
+            </form>
+        </div>
+        <div class="posts-container">
+            <% if (allPosts.length > 0) { %>
+                <div class="posts-grid">
+                    <% allPosts.forEach(post=> { %>
+                        <div class="post">
+                            <img src="https://t4.ftcdn.net/jpg/08/22/19/39/360_F_822193991_AN71gkYWnLq6monTaKvYUDbuMOzzluRx.jpg"
+                                alt="" />
+                            <div class="post-content">
+                                <h1>
+                                    <%= post.title %>
+                                </h1>
+                                <p>
+                                    <%= post.content %>
+                                </p>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+                <% } else { %>
+                    <span class="claimer" style="height: 100%; width: 100%; align-content: center;">
+                        لا يوجد منشورات حاليا
+                    </span>
+                    <% } %>
+
+        </div>
+    </div>
+</body>
+
+</html>

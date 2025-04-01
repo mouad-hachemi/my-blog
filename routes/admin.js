@@ -4,8 +4,14 @@ import { db } from "../datastore/db.js";
 const adminRoute = express.Router();
 
 // Admin Home Page
-adminRoute.get("/", (req, res) => {
-    res.send("Admin Home Page")
+adminRoute.get("/", async (req, res) => {
+    try {
+        const allPosts = await db.all("SELECT * FROM posts");
+        res.render("admin.ejs", {allPosts})
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500);
+    }
 });
 
 adminRoute.post('/add-post', async (req, res) => {
@@ -35,6 +41,22 @@ adminRoute.put('/edit-post/:id', async (req, res) => {
         res.status(201).json("Post Updated!");
     } catch (error) {
         console.error(error.message);
+        return res.status(500)
+    }
+});
+
+
+adminRoute.delete('/delete-post/:id', async (req, res) => {
+    try {
+        const postId = req.params.id;
+        await db.run(
+            'DELETE FROM posts WHERE _id = ?',
+            postId
+        );
+        res.status(201).json("Post Deleted!");
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500)
     }
 });
 
