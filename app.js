@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import express from 'express';
 import { db, initDb } from './datastore/db.js';
-import adminRoute from './routes/admin.js';
+import adminRouter from './routes/admin.js';
 
 // Set absolute path of the current working directory.
 const __dirname = path.resolve();
@@ -15,6 +15,7 @@ dotenv.config();
     await initDb();
 
     const app = express();
+    app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
     app.use(express.static(path.join(__dirname, 'public')))
     app.set('view engine', 'ejs');
@@ -27,7 +28,7 @@ dotenv.config();
         res.render('index.ejs', { allPosts });
     });
 
-    app.use('/admin', adminRoute);
+    app.use('/admin', adminRouter);
 
     app.listen(PORT, () => {
         console.log('http://localhost:' + PORT);

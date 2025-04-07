@@ -1,0 +1,34 @@
+#snackbar {
+    visibility: hidden;
+    position: fixed;
+    left: 45%;
+    bottom: 30px;
+    padding: 12px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+}
+
+#snackbar.success {
+    visibility: visible;
+    background-color: #00c451;
+    animation: fadein 1s, fadeout 1s 2.1s;
+}
+
+#snackbar.fail {
+    visibility: visible;
+    background-color: #da0036;
+    animation: fadein 1s, fadeout 1s 2.1s;
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+

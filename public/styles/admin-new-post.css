@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+/* Declaring Colors */
+:root {
+    --purple: #6a00ff;
+    --dark-purple: #5d03dc;
+    --light-purple: #b1ade6;
+    --light-gray: #e4e1e8;
+    --secondary-dark-purple: #13002d;
+}
+
+/* General Styling */
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Tajawal";
+}
+
+/* Content Styling */
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100dvh;
+    margin-right: 216px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    flex: 1;
+    min-height: 0;
+    /* Critical for proper flex sizing */
+}
+
+input {
+    height: 36px;
+    padding: 0 4px;
+    font-size: 1.2rem;
+    padding: 4px 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input:focus {
+    outline: none;
+}
+
+#editor {
+    flex: 1;
+    min-height: 0;
+    /* Essential for flex children */
+}
+
+
+.ql-editor {
+    overflow-y: auto;
+    /* Enable internal scrolling */
+    padding: 4px;
+    font-size: 1rem;
+}

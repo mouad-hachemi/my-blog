@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
-    <script defer src="js/index.js"></script>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script defer src="/js/index.js"></script>
     <title>مدونة شاهين</title>
 </head>
 
@@ -36,7 +36,7 @@
                         <%= post.title %>
                     </h1>
                     <p>
-                        <%= post.content %>
+                        <%= JSON.parse(post.content)[0].insert.substr(0, 144) + '..' %>
                     </p>
                 </div>
             </div>

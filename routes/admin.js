@@ -1,34 +1,45 @@
 import express from "express";
+import multer from "multer";
 import { db } from "../datastore/db.js";
 
-const adminRoute = express.Router();
+const adminRouter = express.Router();
+const upload = multer();
 
 // Admin Home Page
-adminRoute.get("/", async (req, res) => {
+adminRouter.get("/", async (req, res) => {
     try {
         const allPosts = await db.all("SELECT * FROM posts");
-        res.render("admin.ejs", {allPosts})
+        res.render("admin.ejs", { allPosts })
     } catch (error) {
         console.error(error.message);
         return res.status(500);
     }
 });
 
-adminRoute.post('/add-post', async (req, res) => {
+adminRouter.get('/new-post', async (req, res) => {
+    try {
+        res.render('admin-new-post.ejs')
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500);
+    }
+});
+
+adminRouter.post('/new-post', upload.none(), async (req, res) => {
     try {
         const { title, content } = req.body;
         await db.run('INSERT INTO posts (title, content) VALUES (:title, :content)', {
             ':title': title,
             ':content': content,
         });
-        res.status(201).json("Post Added!");
+        res.status(201).json({ message: 'تم حفظ المنشور بنجاح', flag: true });
     } catch (error) {
         console.error(error.message);
-        return res.status(500);
+        return res.status(500).json({ message: 'خطأ في حفظ المنشور', flag: false });
     }
 });
 
-adminRoute.put('/edit-post/:id', async (req, res) => {
+adminRouter.put('/edit-post/:id', async (req, res) => {
     try {
         const postId = req.params.id;
         const { title, content } = req.body;
@@ -46,7 +57,7 @@ adminRoute.put('/edit-post/:id', async (req, res) => {
 });
 
 
-adminRoute.delete('/delete-post/:id', async (req, res) => {
+adminRouter.delete('/delete-post/:id', async (req, res) => {
     try {
         const postId = req.params.id;
         await db.run(
@@ -60,4 +71,4 @@ adminRoute.delete('/delete-post/:id', async (req, res) => {
     }
 });
 
-export default adminRoute;
+export default adminRouter;
