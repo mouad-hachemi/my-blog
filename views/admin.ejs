@@ -33,6 +33,15 @@
                                         <%= JSON.parse(post.content)[0].insert.substr(0, 144) + '..' %>
                                     </p>
                                 </div>
+                                <div class="post-actions">
+                                    <a href="<%= "/admin/edit-post/" + post._id %>">
+                                        <i class="iconoir-page-edit"
+                                            style="color: white; background-color: rgb(51, 164, 119);">
+
+                                        </i></a>
+                                    <i class="iconoir-trash-solid" onclick="deletePost('<%= post._id %>')"
+                                        style="color: white; background-color: rgb(188, 98, 110);"></i>
+                                </div>
                             </div>
                             <% }) %>
                     </div>
@@ -44,6 +53,7 @@
 
             </div>
         </div>
+        <script src="/js/admin.js"></script>
 </body>
 
 </html>

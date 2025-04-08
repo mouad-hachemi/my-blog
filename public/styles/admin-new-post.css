@@ -48,17 +48,3 @@ input {
 input:focus {
     outline: none;
 }
-
-#editor {
-    flex: 1;
-    min-height: 0;
-    /* Essential for flex children */
-}
-
-
-.ql-editor {
-    overflow-y: auto;
-    /* Enable internal scrolling */
-    padding: 4px;
-    font-size: 1rem;
-}

@@ -15,13 +15,16 @@
     <%- include('sidebar.html') %>
         <div class="container">
             <form>
-                <input type="text" name="title" id="title" placeholder="عنوان المنشور.." required>
-                <%- include('quillEditor') %>
+                <input type="text" name="title" id="title" value="<%= post.title %>" required>
+                <%- include('quillEditor', {content: post.content}) %>
                     <input type="submit" value="حفظ" />
             </form>
         </div>
         <%- include('snackbar.html') %>
-            <script src="/js/admin-new-post.js"></script>
+            <script>
+                const postId = '<%= post._id %>';
+            </script>
+            <script src="/js/admin-edit-post.js"></script>
 </body>
 
 </html>

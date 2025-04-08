@@ -68,6 +68,8 @@
     background-color: var(--dark-purple);
 }
 
+/* 2. Posts Section */
+
 .container .posts-container {
     flex-grow: 1;
     background-color: var(--light-gray);
@@ -82,6 +84,8 @@
 
 .post {
     background-color: white;
+    position: relative;
+    overflow: hidden;
 }
 
 .post-content {
@@ -91,4 +95,33 @@
 .post img {
     width: 100%;
     object-fit: cover;
+}
+
+/* 3. Post Actions */
+.post-actions {
+    position: absolute;
+    left: -44px;
+    bottom: 0;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.post-actions i {
+    transition: all 0.2s ease-in-out;
+}
+
+.post-actions i:hover{
+    scale: 1.1;
+    cursor: pointer;
+}
+
+.post:hover .post-actions {
+    left: 6px;
+    opacity: 1;
+}
+
+.post-actions i {
+    padding: 2px;
+    border-radius: 5px;
+    background-color: var(--light-gray);
 }

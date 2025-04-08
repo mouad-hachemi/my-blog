@@ -39,7 +39,20 @@ adminRouter.post('/new-post', upload.none(), async (req, res) => {
     }
 });
 
-adminRouter.put('/edit-post/:id', async (req, res) => {
+adminRouter.get('/edit-post/:id', async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const post = await db.get('SELECT * FROM posts WHERE _id = :id', {
+            ':id': postId,
+        });
+        res.render("admin-edit-post.ejs", { post });
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500);
+    }
+});
+
+adminRouter.put('/edit-post/:id', upload.none(), async (req, res) => {
     try {
         const postId = req.params.id;
         const { title, content } = req.body;
@@ -49,10 +62,10 @@ adminRouter.put('/edit-post/:id', async (req, res) => {
             content,
             postId
         );
-        res.status(201).json("Post Updated!");
+        res.status(201).json({ message: "تم تحديث المنشور بنجاح", flag: true });
     } catch (error) {
         console.error(error.message);
-        return res.status(500)
+        return res.status(500).json({ message: "خطأ في تحديث المنشور بنجاح", flag: false });
     }
 });
 

@@ -1,13 +1,3 @@
-const quill = new Quill("#editor", {
-    modules: {
-        syntax: true,
-        toolbar: '#toolbar-container',
-    },
-    theme: 'snow'
-});
-
-document.querySelector(".ql-direction").click();
-
 const form = document.querySelector("form");
 
 form.addEventListener("submit", (event) => {
@@ -31,14 +21,3 @@ form.addEventListener("submit", (event) => {
         })
         .catch((error) => console.error(error));
 });
-
-function animateSnackbar({flag, message}) {
-    let snackbar = document.querySelector("#snackbar");
-    snackbar.innerHTML = message;
-    if (flag) {
-        snackbar.className = "success";
-    } else {
-        snackbar.className = "fail";
-    }
-    setTimeout(() => { snackbar.className = snackbar.className.replace(/success|fail/g, "") }, 3000);
-}
