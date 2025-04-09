@@ -43,9 +43,7 @@
     <script src="/js/quillEditor.js"></script>
     <% if (content) { %>
         <script>
-            const malformedJSON = '<%- content %>';
-            const fixedJSON = malformedJSON.replace(/\n/g, "\\n");
-            const deltaData = JSON.parse(fixedJSON);
+            const deltaData = <%- content %>;
             quill.setContents(deltaData);
         </script>
         <% } %>

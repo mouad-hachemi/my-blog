@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import multer from "multer";
 import { db } from "../datastore/db.js";
 
@@ -28,7 +28,7 @@ adminRouter.get('/new-post', async (req, res) => {
 adminRouter.post('/new-post', upload.none(), async (req, res) => {
     try {
         const { title, content } = req.body;
-        await db.run('INSERT INTO posts (title, content) VALUES (:title, :content)', {
+        await db.run('INSERT INTO posts (title, content) VALUES (:title, json(:content))', {
             ':title': title,
             ':content': content,
         });

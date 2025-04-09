@@ -16,7 +16,7 @@
         <div class="container">
             <form>
                 <input type="text" name="title" id="title" placeholder="عنوان المنشور.." required>
-                <%- include('quillEditor') %>
+                <%- include('quillEditor', {content: null}) %>
                     <input type="submit" value="حفظ" />
             </form>
         </div>
