@@ -17,7 +17,10 @@ form.addEventListener("submit", (event) => {
     })
         .then((response) => response.json())
         .then((data) => {
-            animateSnackbar(data)
+            const submitButton = document.querySelector('input[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.value = "يتم التوجيه لصفحة التعديل..";
+            animateSnackbar(data, true)
         })
         .catch((error) => console.error(error));
 });
