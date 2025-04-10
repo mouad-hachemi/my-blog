@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/admin-style.css">
+    <link rel="stylesheet" href="/styles/admin.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
     <title>صفحة الإشراف</title>
 </head>
@@ -18,14 +18,15 @@
                     <button type="submit">إبحث</button>
                 </form>
             </div>
-            <div class="posts-container">
-                <% if (allPosts.length> 0) { %>
+            <% if (allPosts.length> 0) { %>
+                <div class="posts-container">
                     <div class="posts-grid">
                         <% allPosts.forEach(post=> { %>
                             <div class="post">
                                 <img src="https://t4.ftcdn.net/jpg/08/22/19/39/360_F_822193991_AN71gkYWnLq6monTaKvYUDbuMOzzluRx.jpg"
                                     alt="" />
                                 <div class="post-content">
+                                    <span class="category">تصنيف المنشور</span>
                                     <h1>
                                         <%= post.title %>
                                     </h1>
@@ -34,7 +35,7 @@
                                     </p>
                                 </div>
                                 <div class="post-actions">
-                                    <a href="<%= "/admin/edit-post/" + post._id %>">
+                                    <a href="<%= " /admin/edit-post/" + post._id %>">
                                         <i class="iconoir-page-edit"
                                             style="color: white; background-color: rgb(51, 164, 119);">
 
@@ -45,13 +46,14 @@
                             </div>
                             <% }) %>
                     </div>
-                    <% } else { %>
-                        <span class="claimer" style="height: 100%; width: 100%; align-content: center;">
-                            لا يوجد منشورات حاليا
-                        </span>
-                        <% } %>
+                </div>
+                <% } else { %>
+                    <span class="message" style="margin: auto; display: flex; align-items: center; gap: 2px;">
+                        تحرك وانشر ما في جعبتك
+                        <i class="iconoir-edit-pencil"></i>
+                    </span>
+                    <% } %>
 
-            </div>
         </div>
         <script src="/js/admin.js"></script>
 </body>
