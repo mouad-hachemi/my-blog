@@ -16,6 +16,12 @@
         <div class="container">
             <form>
                 <input type="text" name="title" id="title" placeholder="عنوان المنشور.." required>
+                <select name="category" id="category">
+                    <option value="coding">برمجة</option>
+                    <option value="linux">لينكس</option>
+                    <option value="foss">برمجيات حرة</option>
+                    <option value="general-topics" selected>مواضيع عامة</option>
+                </select>
                 <%- include('quillEditor', {content: null}) %>
                     <input type="submit" value="حفظ"/>
             </form>

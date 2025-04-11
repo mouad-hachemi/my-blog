@@ -16,6 +16,24 @@
         <div class="container">
             <form>
                 <input type="text" name="title" id="title" value="<%= post.title %>" required>
+                <select name="category" id="category">
+                    <option value="coding" <% if (post.category=='coding' ) { %>
+                        <%- 'selected' %>
+                            <% } %> >برمجة
+                    </option>
+                    <option value="linux" <% if (post.category=='linux' ) { %>
+                        <%- 'selected' %>
+                            <% } %>>لينكس
+                    </option>
+                    <option value="foss" <% if (post.category=='foss' ) { %>
+                        <%- 'selected' %>
+                            <% } %>>برمجيات حرة
+                    </option>
+                    <option value="general-topics" <% if (post.category=='general-topics' ) { %>
+                        <%- 'selected' %>
+                            <% } %>>مواضيع عامة
+                    </option>
+                </select>
                 <%- include('quillEditor', {content: post.content}) %>
                     <input type="submit" value="حفظ" />
             </form>

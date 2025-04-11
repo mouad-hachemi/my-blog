@@ -27,10 +27,11 @@ adminRouter.get('/new-post', async (req, res) => {
 
 adminRouter.post('/new-post', upload.none(), async (req, res) => {
     try {
-        const { title, content } = req.body;
-        const { lastID } = await db.run('INSERT INTO posts (title, content) VALUES (:title, json(:content))', {
+        const { title, content, category } = req.body;
+        const { lastID } = await db.run('INSERT INTO posts (title, content, category) VALUES (:title, json(:content), :category)', {
             ':title': title,
             ':content': content,
+            ':category': category,
         });
         res.status(201).json({ message: 'تم حفظ المنشور بنجاح', flag: true, id: lastID });
     } catch (error) {
@@ -55,11 +56,12 @@ adminRouter.get('/edit-post/:id', async (req, res) => {
 adminRouter.put('/edit-post/:id', upload.none(), async (req, res) => {
     try {
         const postId = req.params.id;
-        const { title, content } = req.body;
+        const { title, content, category } = req.body;
         await db.run(
-            'UPDATE posts SET title = ?, content = ? WHERE _id = ?',
+            'UPDATE posts SET title = ?, content = ?, category = ? WHERE _id = ?',
             title,
             content,
+            category,
             postId
         );
         res.status(201).json({ message: "تم تحديث المنشور بنجاح", flag: true });

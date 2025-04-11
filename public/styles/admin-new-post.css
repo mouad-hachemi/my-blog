@@ -36,7 +36,7 @@ form {
     /* Critical for proper flex sizing */
 }
 
-input {
+input, select {
     height: 36px;
     padding: 0 4px;
     font-size: 1.2rem;
