@@ -24,7 +24,7 @@ dotenv.config();
 
     // Endpoints (Routes)
     app.get('/', async (req, res) => {
-        const allPosts = await db.all('SELECT * FROM posts');
+        const allPosts = await db.all('SELECT * FROM posts WHERE published = true');
         res.render('index.ejs', { allPosts });
     });
 
