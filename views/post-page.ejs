@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/post-page.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <title>
+        <%= 'شاهين | ' + post.title %>
+    </title>
+</head>
+
+<body>
+    <%- include('navbar.html') %>
+    <h1 class="title">
+        <%= post.title %>
+    </h1>
+    <div class="header">
+        <img src="https://png.pngtree.com/thumb_back/fh260/background/20240610/pngtree-computer-of-a-programmer-with-lines-code-of-software-image_15746003.jpg"
+            alt="" />
+    </div>
+    </div>
+    <div class="container">
+        <div class="content">
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script>
+        const deltaData = <%- post.content %>;
+
+        function deltaToHTML(detlaData) {
+            const container = document.createElement('div');
+            const quill = new Quill(container);
+            quill.setContents(deltaData);
+            return container.querySelector('.ql-editor').innerHTML;
+        }
+
+        const htmlContent = deltaToHTML(deltaData);
+
+        document.querySelector('.content').innerHTML = htmlContent;
+
+        document.querySelectorAll('div.ql-code-block').forEach((el) => {
+            hljs.highlightElement(el);
+        });
+
+        document.querySelectorAll('ol').forEach(el => {
+            console.log(el);
+            const listType = el.querySelector('li').getAttribute('data-list');
+            if (listType == 'bullet') {
+                let ul = document.createElement('ul');
+                ul.innerHTML = el.innerHTML;
+                el.parentNode.insertBefore(ul, el);
+                el.parentNode.removeChild(el);
+            }
+        });
+    </script>
+</body>
+
+</html>

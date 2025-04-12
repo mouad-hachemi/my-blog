@@ -77,10 +77,10 @@ adminRouter.put('/edit-post/publish/:id', async (req, res) => {
         await db.run('UPDATE posts SET published = true WHERE _id = ?',
             postId
         );
-        res.status(201).json({message: 'تم النشر بنجاح ', flag: true});
+        res.status(201).json({ message: 'تم النشر بنجاح ', flag: true });
     } catch (error) {
         console.error(error.message);
-        return res.status(500).json({message: "حدث خطأ في النشر", flag: false})
+        return res.status(500).json({ message: "حدث خطأ في النشر", flag: false })
     }
 });
 
@@ -90,10 +90,10 @@ adminRouter.put('/edit-post/hide/:id', async (req, res) => {
         await db.run('UPDATE posts SET published = false WHERE _id = ?',
             postId
         );
-        res.status(201).json({message: 'تم إخفاء المنشور بنجاح ', flag: true});
+        res.status(201).json({ message: 'تم إخفاء المنشور بنجاح ', flag: true });
     } catch (error) {
         console.error(error.message);
-        return res.status(500).json({message: "لم يمكن إخفاء المنشور", flag: false})
+        return res.status(500).json({ message: "لم يمكن إخفاء المنشور", flag: false })
     }
 });
 

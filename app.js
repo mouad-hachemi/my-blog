@@ -28,6 +28,19 @@ dotenv.config();
         res.render('index.ejs', { allPosts });
     });
 
+    app.get("/post/:id", async (req, res) => {
+        try {
+            const postId = req.params.id;
+            const post = await db.get('SELECT * FROM posts where _id = :id', {
+                ':id': postId,
+            });
+            return res.render('post-page', { post });
+        } catch (error) {
+            console.log(error.message);
+            return res.status(500);
+        }
+    });
+
     app.use('/admin', adminRouter);
 
     app.listen(PORT, () => {

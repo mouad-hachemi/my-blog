@@ -1,0 +1,101 @@
+/* This is Home Page Styling */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+:root {
+    --purple: #6a00ff;
+    --dark-purple: #5d03dc;
+    --light-purple: #b1ade6;
+    --light-gray: #e4e1e8;
+    --secondary-dark-purple: #13002d;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Tajawal";
+}
+
+/* Image Styling. */
+
+img {
+    display: block;
+    margin: auto;
+    max-inline-size: 100%;
+    border-radius: 5px;
+}
+
+
+/* Content Styling */
+.content {
+    margin: auto;
+    margin-top: 12px;
+    max-width: 1080px;
+    width: 100%;
+}
+
+.title {
+    font-size: 2.5rem;
+    max-width: 1080px;
+    width: 100%;
+    margin: auto;
+}
+
+.content p {
+    text-wrap: pretty;
+    font-size: 1.4rem;
+}
+
+.content p > span {
+    display: block;
+}
+
+.ql-code-block-container {
+    direction: ltr;
+    margin: 6px 0;
+    font-size: 1.1rem;
+    background-color: #282c34;
+    padding: 12px;
+    border-radius: 3px;
+}
+
+p:has(span.ql-formula) {
+    direction: ltr;
+    margin: 6px 0;
+    padding: 12px;
+    border-radius: 2px;
+    background-color: var(--light-gray);
+}
+
+blockquote {
+    font-size: 1.2rem;
+    margin: 6px 0;
+    font-style: italic;
+    color: var(--secondary-dark-purple);
+    padding: 12px 50px 12px 30px;
+    border-right: 8px solid var(--dark-purple);
+    line-height: 1.6;
+    position: relative;
+    background: var(--light-gray);
+}
+
+blockquote::before {
+    content: "\201D";
+    color: var(--secondary-dark-purple);
+    font-size: 4em;
+    position: absolute;
+    right: 20px;
+    top: -15px;
+}
+
+blockquote span {
+    display: block;
+    color: #333333;
+    font-style: normal;
+    font-weight: bold;
+    margin-top: 1em;
+}
+
+ol, ul {
+    margin-right: 1.5rem;
+}

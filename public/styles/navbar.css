@@ -1,0 +1,44 @@
+/* Navbar styling */
+.nav-bar {
+    background-color: var(--purple);
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    gap: 4px;
+}
+
+.nav-bar-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.slogan {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    align-content: center;
+    background-color: white;
+    color: var(--purple);
+    margin: 10px 0;
+    padding: 0 10px;
+    border-radius: 32px;
+}
+
+.nav-bar-item {
+    display: inline;
+    align-content: center;
+    font-size: 1.125rem;
+    transition: background-color 100ms ease-in;
+}
+
+.nav-bar-item a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 16px 8px;
+}
+
+.nav-bar-item:hover {
+    background-color: var(--dark-purple);
+}
