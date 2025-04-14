@@ -25,12 +25,21 @@
                     <option value="foss">برمجيات حرة</option>
                     <option value="general-topics" selected>مواضيع عامة</option>
                 </select>
+                <input type="file" name="post-thumbnail" id="post-thumbnail" accept="image/*" required>
                 <%- include('quillEditor', {content: null}) %>
                     <input type="submit" value="حفظ" />
             </form>
         </div>
         <%- include('snackbar.html') %>
-            <script src="/js/admin-new-post.js"></script>
+        <script type="importmap">
+            {
+                "imports": {
+                    "env": "/js/env.js"
+                }
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.4.0/dist/axios.min.js"></script>
+        <script type="module" src="/js/admin-new-post.js"></script>
 </body>
 
 </html>

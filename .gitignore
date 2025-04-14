@@ -137,3 +137,6 @@ dist
 
 # db files
 datastore/blog.sqlite
+
+# frontend env
+public/js/env.js

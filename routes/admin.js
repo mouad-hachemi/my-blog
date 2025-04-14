@@ -27,12 +27,16 @@ adminRouter.get('/new-post', async (req, res) => {
 
 adminRouter.post('/new-post', upload.none(), async (req, res) => {
     try {
-        const { title, content, category } = req.body;
-        const { lastID } = await db.run('INSERT INTO posts (title, content, category) VALUES (:title, json(:content), :category)', {
-            ':title': title,
-            ':content': content,
-            ':category': category,
-        });
+        const { title, content, category, thumbnail } = req.body;
+        const { lastID } = await db.run(
+            'INSERT INTO posts (title, content, category, thumbnail_url) VALUES (:title, json(:content), :category, :thumbnail)',
+            {
+                ':title': title,
+                ':content': content,
+                ':category': category,
+                ':thumbnail': thumbnail,
+            }
+        );
         res.status(201).json({ message: 'تم حفظ المنشور بنجاح', flag: true, id: lastID });
     } catch (error) {
         console.error(error.message);

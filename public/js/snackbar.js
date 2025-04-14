@@ -8,6 +8,6 @@ function animateSnackbar({ flag, message, id }, redirect = false) {
     }
     setTimeout(() => {
         snackbar.className = snackbar.className.replace(/success|fail/g, "");
-        if (redirect) window.location.replace('/admin/edit-post/' + id);
+        if (redirect && flag) window.location.replace('/admin/edit-post/' + id);
     }, 3000);
 }
