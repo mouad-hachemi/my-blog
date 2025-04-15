@@ -60,12 +60,13 @@ adminRouter.get('/edit-post/:id', async (req, res) => {
 adminRouter.put('/edit-post/:id', upload.none(), async (req, res) => {
     try {
         const postId = req.params.id;
-        const { title, content, category } = req.body;
+        const { title, content, category, thumbnail } = req.body;
         await db.run(
-            'UPDATE posts SET title = ?, content = ?, category = ? WHERE _id = ?',
+            'UPDATE posts SET title = ?, content = ?, category = ?, thumbnail_url = ? WHERE _id = ?',
             title,
             content,
             category,
+            thumbnail,
             postId
         );
         res.status(201).json({ message: "تم تحديث المنشور بنجاح", flag: true });

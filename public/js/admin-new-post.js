@@ -1,31 +1,4 @@
-import { owner, repo, getGitHubToken } from "env";
-
 const form = document.querySelector("form");
-
-async function uploadImageToGithub(file, fileName) {
-    const githubURL = `https://api.github.com/repos/${owner}/${repo}/contents/uploads/${fileName}`;
-    const GITHUB_TOKEN = getGitHubToken();
-
-    const config = {
-        onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-            console.log(`Upload progress: ${percentCompleted}%`);
-        },
-        headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Content-Type': 'application/json',
-        }
-    }
-
-    const payLoad = {
-        message: `Upload ${fileName}`,
-        content: file,
-    }
-
-    const { data } = await axios.put(githubURL, payLoad, config);
-    const imgURL = data.content.download_url;
-    return imgURL;
-}
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();

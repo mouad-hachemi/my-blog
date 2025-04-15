@@ -33,6 +33,7 @@
                             <% } %>>مواضيع عامة
                     </option>
                 </select>
+                <input type="file" name="post-thumbnail" id="post-thumbnail" accept="image/*">
                 <%- include('quillEditor', {content: post.content}) %>
                 <div class="actions">
                     <input type="submit" value="حفظ" style="background-color: #3D90D7; color: white;" />
@@ -52,11 +53,15 @@
             </form>
         </div>
         <%- include('snackbar.html') %>
-            <script>
-                const postId = '<%= post._id %>';
-                const published = '<%= post.published %>';
-            </script>
-            <script src="/js/admin-edit-post.js"></script>
+        <script>
+            const thumbnailURL = '<%= post.thumbnail_url %>';
+            const postId = '<%= post._id %>';
+            const published = '<%= post.published %>';
+        </script>
+        <script src="/js/env.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.4.0/dist/axios.min.js"></script>
+        <script src="/js/utils.js"></script>
+        <script src="/js/admin-edit-post.js"></script>
 </body>
 
 </html>

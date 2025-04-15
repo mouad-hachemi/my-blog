@@ -46,8 +46,11 @@
                                             style="color: white; background-color: rgb(51, 164, 119);">
 
                                         </i></a>
-                                    <i class="iconoir-trash-solid" onclick="deletePost('<%= post._id %>')"
-                                        style="color: white; background-color: rgb(188, 98, 110);"></i>
+                                    <i
+                                        class="iconoir-trash-solid" onclick="deletePost('<%= post._id %>', '<%= post.thumbnail_url %>')"
+                                        style="color: white; background-color: rgb(188, 98, 110);"
+                                    >
+                                    </i>
                                 </div>
                             </div>
                             <% }) %>
@@ -60,6 +63,9 @@
                     <% } %>
 
         </div>
+        <script src="/js/env.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.4.0/dist/axios.min.js"></script>
+        <script src="/js/utils.js"></script>
         <script src="/js/admin.js"></script>
 </body>
 

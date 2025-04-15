@@ -31,15 +31,10 @@
             </form>
         </div>
         <%- include('snackbar.html') %>
-        <script type="importmap">
-            {
-                "imports": {
-                    "env": "/js/env.js"
-                }
-            }
-        </script>
+        <script src="/js/env.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios@1.4.0/dist/axios.min.js"></script>
-        <script type="module" src="/js/admin-new-post.js"></script>
+        <script src="/js/utils.js"></script>
+        <script src="/js/admin-new-post.js"></script>
 </body>
 
 </html>
