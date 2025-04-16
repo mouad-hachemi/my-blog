@@ -1,4 +1,5 @@
 const form = document.querySelector("form");
+const submitButton = document.querySelector('input[type="submit"]');
 const actionButton = document.querySelector('input[type="button"]');
 
 if (published == '1') {
@@ -13,6 +14,7 @@ if (published == '1') {
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
+    submitButton.disabled = true;
 
     const formData = new FormData(form);
     formData.delete("post-thumbnail");
@@ -40,11 +42,10 @@ form.addEventListener("submit", (event) => {
 
             try {
                 if (postTitle.split(' ').join('-') == gitFileName) {
-                    console.log('Same image name: ', `${gitFileName}.${gitFileExt}`);
                     newThumbnailURL = await updateImageInGithub(base64Encoded, `${gitFileName}.${gitFileExt}`);
                 } else {
-                    await deleteImageFromGithub(`${gitFileName}.${gitFileExt}`);
                     newThumbnailURL = await uploadImageToGithub(base64Encoded, `${fileName}.${ext}`);
+                    await deleteImageFromGithub(`${gitFileName}.${gitFileExt}`);
                 }
             } catch (error) {
                 console.log(error.message)
@@ -67,7 +68,10 @@ function editPost(payload) {
         body: payload,
     })
         .then((res) => res.json())
-        .then((data) => animateSnackbar(data));
+        .then((data) => {
+            submitButton.disabled = false;
+            animateSnackbar(data);
+        });
 }
 
 function publishPost() {

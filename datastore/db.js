@@ -1,20 +1,9 @@
-import sqlite3 from 'sqlite3';
-import { open } from "sqlite";
-import path from 'path';
+import { createClient } from '@libsql/client';
+import dotenv from 'dotenv';
 
-const __dirname = path.resolve();
+dotenv.config();
 
-export let db;
-
-export async function initDb() {
-    // Open database.
-    db = await open({
-        filename: path.join(__dirname, 'datastore', 'blog.sqlite'),
-        driver: sqlite3.Database
-    });
-
-    await db.migrate({
-        migrationsPath: path.join(__dirname, 'datastore', 'migrations'),
-    });
-
-}
+export const turso = createClient({
+    url: process.env.TURSO_DATABASE_URL,
+    authToken: process.env.TURSO_AUTH_TOKEN,
+});

@@ -11,6 +11,7 @@
   "author": "mouad-hachemi",
   "license": "ISC",
   "dependencies": {
+    "@libsql/client": "^0.15.4",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",

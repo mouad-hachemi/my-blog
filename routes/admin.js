@@ -1,6 +1,6 @@
 import express, { json } from "express";
 import multer from "multer";
-import { db } from "../datastore/db.js";
+import { turso } from "../datastore/db.js";
 
 const adminRouter = express.Router();
 const upload = multer();
@@ -8,7 +8,8 @@ const upload = multer();
 // Admin Home Page
 adminRouter.get("/", async (req, res) => {
     try {
-        const allPosts = await db.all("SELECT * FROM posts");
+        const queryResp = await turso.execute('SELECT * FROM posts;');
+        const allPosts = queryResp.rows;
         res.render("admin.ejs", { allPosts })
     } catch (error) {
         console.error(error.message);
@@ -28,16 +29,16 @@ adminRouter.get('/new-post', async (req, res) => {
 adminRouter.post('/new-post', upload.none(), async (req, res) => {
     try {
         const { title, content, category, thumbnail } = req.body;
-        const { lastID } = await db.run(
-            'INSERT INTO posts (title, content, category, thumbnail_url) VALUES (:title, json(:content), :category, :thumbnail)',
-            {
-                ':title': title,
-                ':content': content,
-                ':category': category,
-                ':thumbnail': thumbnail,
+        const { lastInsertRowid } = await turso.execute({
+            sql: 'INSERT INTO posts (title, content, category, thumbnail_url) VALUES (:title, json(:content), :category, :thumbnail)',
+            args: {
+                title,
+                content,
+                category, 
+                thumbnail,
             }
-        );
-        res.status(201).json({ message: 'تم حفظ المنشور بنجاح', flag: true, id: lastID });
+        });
+        res.status(201).json({ message: 'تم حفظ المنشور بنجاح', flag: true, id: lastInsertRowid.toString() });
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ message: 'خطأ في حفظ المنشور', flag: false });
@@ -47,9 +48,11 @@ adminRouter.post('/new-post', upload.none(), async (req, res) => {
 adminRouter.get('/edit-post/:id', async (req, res) => {
     try {
         const postId = req.params.id;
-        const post = await db.get('SELECT * FROM posts WHERE _id = :id', {
-            ':id': postId,
+        const queryResp = await turso.execute({
+            sql: 'SELECT * FROM posts WHERE _id = ?',
+            args: [postId],
         });
+        const post = queryResp.rows[0];
         res.render("admin-edit-post.ejs", { post });
     } catch (error) {
         console.error(error.message);
@@ -61,14 +64,16 @@ adminRouter.put('/edit-post/:id', upload.none(), async (req, res) => {
     try {
         const postId = req.params.id;
         const { title, content, category, thumbnail } = req.body;
-        await db.run(
-            'UPDATE posts SET title = ?, content = ?, category = ?, thumbnail_url = ? WHERE _id = ?',
-            title,
-            content,
-            category,
-            thumbnail,
-            postId
-        );
+        await turso.execute({
+            sql: 'UPDATE posts SET title = :title, content = :content, category = :category, thumbnail_url = :thumbnail, updated_at = unixepoch() WHERE _id = :id',
+            args: {
+                title,
+                content,
+                category,
+                thumbnail,
+                id: postId,
+            }
+        });
         res.status(201).json({ message: "تم تحديث المنشور بنجاح", flag: true });
     } catch (error) {
         console.error(error.message);
@@ -79,9 +84,10 @@ adminRouter.put('/edit-post/:id', upload.none(), async (req, res) => {
 adminRouter.put('/edit-post/publish/:id', async (req, res) => {
     try {
         const postId = req.params.id;
-        await db.run('UPDATE posts SET published = true WHERE _id = ?',
-            postId
-        );
+        await turso.execute({
+            sql: 'UPDATE posts SET published = true WHERE _id = ?',
+            args: [postId],
+        });
         res.status(201).json({ message: 'تم النشر بنجاح ', flag: true });
     } catch (error) {
         console.error(error.message);
@@ -92,9 +98,10 @@ adminRouter.put('/edit-post/publish/:id', async (req, res) => {
 adminRouter.put('/edit-post/hide/:id', async (req, res) => {
     try {
         const postId = req.params.id;
-        await db.run('UPDATE posts SET published = false WHERE _id = ?',
-            postId
-        );
+        await turso.execute({
+            sql: 'UPDATE posts SET published = false WHERE _id = ?',
+            args: [postId],
+        });
         res.status(201).json({ message: 'تم إخفاء المنشور بنجاح ', flag: true });
     } catch (error) {
         console.error(error.message);
@@ -105,10 +112,10 @@ adminRouter.put('/edit-post/hide/:id', async (req, res) => {
 adminRouter.delete('/delete-post/:id', async (req, res) => {
     try {
         const postId = req.params.id;
-        await db.run(
-            'DELETE FROM posts WHERE _id = ?',
-            postId
-        );
+        await turso.execute({
+            sql: 'DELETE FROM posts WHERE _id = ?',
+            args: [postId],
+        });
         res.status(201).json("Post Deleted!");
     } catch (error) {
         console.error(error.message);

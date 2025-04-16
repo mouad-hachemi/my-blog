@@ -2,8 +2,8 @@ const form = document.querySelector("form");
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
-
-    console.log("Submitting..");
+    const submitButton = document.querySelector('input[type="submit"]');
+    submitButton.disabled = true;
     // Capture quill editor content.
     const content = JSON.stringify(quill.getContents().ops);
 
@@ -36,15 +36,19 @@ form.addEventListener("submit", (event) => {
             body: formData,
         })
             .then((response) => response.json())
+            .catch((error) => {
+                console.log(error.message);
+                submitButton.disabled = false;
+            })
             .then((data) => {
                 if (data.flag) {
-                    const submitButton = document.querySelector('input[type="submit"]');
-                    submitButton.disabled = true;
                     submitButton.value = "يتم التوجيه لصفحة التعديل..";
                 }
                 animateSnackbar(data, true);
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error('An error occured', error.message);
+            });
     }
 
     reader.readAsArrayBuffer(file);

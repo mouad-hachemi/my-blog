@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import express from 'express';
-import { db, initDb } from './datastore/db.js';
+import { turso } from './datastore/db.js';
 import adminRouter from './routes/admin.js';
 
 // Set absolute path of the current working directory.
@@ -10,40 +10,43 @@ const __dirname = path.resolve();
 dotenv.config();
 
 // Create app.
-(async () => {
-    // Initialize database
-    await initDb();
+const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('view engine', 'ejs');
 
-    const app = express();
-    app.use(express.urlencoded({ extended: true }));
-    app.use(express.json());
-    app.use(express.static(path.join(__dirname, 'public')))
-    app.set('view engine', 'ejs');
+const PORT = process.env.PORT;
 
-    const PORT = process.env.PORT;
-
-    // Endpoints (Routes)
-    app.get('/', async (req, res) => {
-        const allPosts = await db.all('SELECT * FROM posts WHERE published = true');
+// Endpoints (Routes)
+app.get('/', async (req, res) => {
+    try {
+        const queryResp = await turso.execute('SELECT * FROM posts WHERE published = true');
+        const allPosts = queryResp.rows;
         res.render('index.ejs', { allPosts });
-    });
+    } catch (error) {
+        console.log(error.message);
+        res.status(502);
+    }
+});
 
-    app.get("/post/:id", async (req, res) => {
-        try {
-            const postId = req.params.id;
-            const post = await db.get('SELECT * FROM posts where _id = :id', {
-                ':id': postId,
-            });
-            return res.render('post-page', { post });
-        } catch (error) {
-            console.log(error.message);
-            return res.status(500);
-        }
-    });
+app.get("/post/:id", async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const queryResp = await turso.execute({
+            sql: 'SELECT * FROM posts where _id = ?',
+            args: [postId],
+        });
+        const post = queryResp.rows[0];
+        return res.render('post-page', { post });
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500);
+    }
+});
 
-    app.use('/admin', adminRouter);
+app.use('/admin', adminRouter);
 
-    app.listen(PORT, () => {
-        console.log('http://localhost:' + PORT);
-    });
-})();
+app.listen(PORT, () => {
+    console.log('http://localhost:' + PORT);
+});
