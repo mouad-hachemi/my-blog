@@ -21,7 +21,11 @@ const PORT = process.env.PORT;
 // Endpoints (Routes)
 app.get('/', async (req, res) => {
     try {
-        const queryResp = await turso.execute('SELECT * FROM posts WHERE published = true');
+        const { searchTerm } = req.query
+        const queryResp = await turso.execute({
+            sql: 'SELECT * FROM posts WHERE published = true AND title LIKE ?',
+            args: [searchTerm ? `%${searchTerm}%` : '%%'],
+        });
         const allPosts = queryResp.rows;
         res.render('index.ejs', { allPosts });
     } catch (error) {

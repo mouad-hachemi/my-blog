@@ -8,9 +8,13 @@ const upload = multer();
 // Admin Home Page
 adminRouter.get("/", async (req, res) => {
     try {
-        const queryResp = await turso.execute('SELECT * FROM posts;');
+        const { searchTerm } = req.query;
+        const queryResp = await turso.execute({
+            sql: 'SELECT * FROM posts WHERE title LIKE ?',
+            args: [searchTerm ? `%${searchTerm}%` : '%%'],
+        });
         const allPosts = queryResp.rows;
-        res.render("admin.ejs", { allPosts })
+        res.render("admin.ejs", { allPosts });
     } catch (error) {
         console.error(error.message);
         return res.status(500);
@@ -34,7 +38,7 @@ adminRouter.post('/new-post', upload.none(), async (req, res) => {
             args: {
                 title,
                 content,
-                category, 
+                category,
                 thumbnail,
             }
         });

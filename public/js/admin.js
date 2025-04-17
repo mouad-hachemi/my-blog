@@ -1,3 +1,19 @@
+const searchForm = document.querySelector("form");
+searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const searchInput = document.getElementById("search-input");
+    const searchTerm = searchInput.value;
+
+    console.log('Searching for: ', searchTerm);
+
+    const urlParams = new URLSearchParams();
+    urlParams.append('searchTerm', searchTerm);
+
+    window.location.search = urlParams;
+});
+
+
 async function deletePost(id, thumbnailURL) {
 
     const fileName = thumbnailURL.split("/").at(-1);
