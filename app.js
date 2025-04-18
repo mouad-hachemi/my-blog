@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
 const PORT = process.env.PORT;
@@ -21,10 +21,10 @@ const PORT = process.env.PORT;
 // Endpoints (Routes)
 app.get('/', async (req, res) => {
     try {
-        const { searchTerm } = req.query
+        const { searchTerm, category } = req.query
         const queryResp = await turso.execute({
-            sql: 'SELECT * FROM posts WHERE published = true AND title LIKE ?',
-            args: [searchTerm ? `%${searchTerm}%` : '%%'],
+            sql: 'SELECT * FROM posts WHERE published = true AND category LIKE ? AND title LIKE ?',
+            args: [category ? category : '%%', searchTerm ? `%${searchTerm}%` : '%%'],
         });
         const allPosts = queryResp.rows;
         res.render('index.ejs', { allPosts });
@@ -44,7 +44,7 @@ app.get("/post/:id", async (req, res) => {
         const post = queryResp.rows[0];
         return res.render('post-page', { post });
     } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
         return res.status(500);
     }
 });
