@@ -140,3 +140,6 @@ datastore/blog.sqlite
 
 # frontend env
 public/js/env.js
+
+# VSCode locale config.
+.vscode/
