@@ -17,7 +17,7 @@ dotenv.config();
 
 // Create Redis client
 const redisClient = createClient({
-    url: process.env.REDI_URL,
+    url: process.env.REDIS_URL,
 });
 
 if (!process.env.REDIS_URL) {
