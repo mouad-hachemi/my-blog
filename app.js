@@ -20,6 +20,11 @@ const redisClient = createClient({
     url: process.env.REDI_URL,
 });
 
+if (!process.env.REDIS_URL) {
+    console.error('Error: REDIS_URL environment variable is not set.');
+    process.exit(1); // Exit the app if REDIS_URL is missing
+}
+
 // Handle Redis connection errors
 redisClient.on('error', (err) => {
     console.error('Redis error:', err);
