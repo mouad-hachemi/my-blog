@@ -1,16 +1,10 @@
 import express from "express";
 import multer from "multer";
 import { turso } from "../datastore/db.js";
+import verifyAdmin from "../middlewares/authZ.js";
 
 const adminRouter = express.Router();
 const upload = multer();
-
-function verifyAdmin(req, res, next) {
-    if (!req.session.user?.isAdmin) {
-        return res.redirect('/');
-    }
-    next();
-}
 
 adminRouter.use(verifyAdmin)
 

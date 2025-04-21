@@ -25,6 +25,7 @@ form.addEventListener("submit", (event) => {
             thumbnailURL = await uploadImageToGithub(base64Encoded, `${fileName}.${ext}`);
         } catch (error) {
             console.error(error.message);
+            submitButton.disabled = false;
             return;
         }
         // Capture other input data.

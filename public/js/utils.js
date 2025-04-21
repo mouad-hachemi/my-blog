@@ -1,6 +1,14 @@
 async function uploadImageToGithub(file, fileName) {
+    let credentials = {}
+    try {
+        credentials = await getGithubCredentials();
+    } catch (error) {
+        throw new Error("Can't get github credentials.");
+    }
+
+    const { GITHUB_TOKEN, owner, repo } = credentials;
+
     const githubURL = `https://api.github.com/repos/${owner}/${repo}/contents/uploads/${fileName}`;
-    const GITHUB_TOKEN = getGitHubToken();
 
     const config = {
         onUploadProgress: (progressEvent) => {
@@ -24,8 +32,17 @@ async function uploadImageToGithub(file, fileName) {
 }
 
 async function deleteImageFromGithub(fileName) {
+    let credentials = {}
+    try {
+        credentials = await getGithubCredentials();
+    } catch (error) {
+        throw new Error("Can't get github credentials.");
+    }
+
+    const { GITHUB_TOKEN, owner, repo } = credentials;
+
+
     const githubURL = `https://api.github.com/repos/${owner}/${repo}/contents/uploads/${fileName}`;
-    const GITHUB_TOKEN = getGitHubToken();
 
     const config = {
         headers: {
@@ -51,8 +68,16 @@ async function deleteImageFromGithub(fileName) {
 
 
 async function updateImageInGithub(file, fileName) {
+    let credentials = {}
+    try {
+        credentials = await getGithubCredentials();
+    } catch (error) {
+        throw new Error("Can't get credentials.");
+    }
+
+    const { GITHUB_TOKEN, owner, repo } = credentials;
+    
     const githubURL = `https://api.github.com/repos/${owner}/${repo}/contents/uploads/${fileName}`;
-    const GITHUB_TOKEN = getGitHubToken();
 
     const config = {
         onUploadProgress: (progressEvent) => {
@@ -80,8 +105,26 @@ async function updateImageInGithub(file, fileName) {
 
 
 async function getFileSha(fileName) {
+    let credentials = {};
+
+    try {
+        credentials = await getGithubCredentials();
+    } catch (error) {
+        throw new Error("Can't get credentials.");
+    }
+
+    const {owner, repo} = credentials;
+
     const githubURL = `https://api.github.com/repos/${owner}/${repo}/contents/uploads/${fileName}`;
 
     const { data } = await axios.get(githubURL);
     return data.sha;
+}
+
+async function getGithubCredentials() {
+    const response = await fetch("/api/github-credentials", {
+        method: "GET",
+    })
+    const credentials = await response.json();
+    return credentials;
 }

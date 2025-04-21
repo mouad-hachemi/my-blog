@@ -3,6 +3,7 @@ import path from 'path';
 import express from 'express';
 import { turso } from './datastore/db.js';
 import adminRouter from './routes/admin.js';
+import apiRouter from './routes/api.js';
 import bcrypt from "bcrypt";
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
@@ -75,6 +76,8 @@ app.get("/admin-login", async (req, res) => {
         return res.redirect("/");
     }
 });
+
+app.use("/api", apiRouter);
 
 app.use('/admin', adminRouter);
 
