@@ -17,6 +17,9 @@
 }
 
 /* Image Styling. */
+.header {
+    margin: 0rem 1rem;
+}
 
 img {
     display: block;
@@ -26,7 +29,6 @@ img {
     height: auto;
     border-radius: 5px;
 }
-
 
 /* Content Styling */
 .content {
@@ -40,7 +42,11 @@ img {
     font-size: 2.5rem;
     max-width: 1080px;
     width: 100%;
-    margin: auto;
+    margin: 1rem 1rem;
+}
+
+.container {
+    margin: 0 1rem;
 }
 
 .content p {

@@ -1,44 +1,81 @@
-/* Navbar styling */
-.nav-bar {
+/* Navbar Responsive Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
     background-color: var(--purple);
     color: white;
-    display: flex;
-    justify-content: center;
-    padding: 0 10px;
-    gap: 4px;
 }
 
-.nav-bar-actions {
+.nav-links {
+    /* height: 100%; */
     display: flex;
-    justify-content: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 1rem 0.8rem;
+}
+
+.nav-links a:hover {
+    background-color: var(--dark-purple);
+}
+
+/* Mobile menu button (hidden by default) */
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 .slogan {
+    text-align: center; align-content: center;
     font-size: 1.4rem;
     font-weight: bold;
-    text-align: center;
-    align-content: center;
     background-color: white;
     color: var(--purple);
-    margin: 10px 0;
-    padding: 0 10px;
+    padding: 0.2rem 0.4rem;
     border-radius: 32px;
 }
 
-.nav-bar-item {
-    display: inline;
-    align-content: center;
-    font-size: 1.125rem;
-    transition: background-color 100ms ease-in;
-}
+/* Responsive styles */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 2rem;
+    }
 
-.nav-bar-item a {
-    display: block;
-    text-decoration: none;
-    color: white;
-    padding: 16px 8px;
-}
+    .nav-links a {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
 
-.nav-bar-item:hover {
-    background-color: var(--dark-purple);
+    .nav-links {
+        position: fixed;
+        top: 4.5rem;
+        left: 0;
+        width: 100%;
+        background-color: #6a00ff;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        gap: 1rem;
+        transform: translateY(-150%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 100;
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+    }
+
+    .menu-btn {
+        display: block;
+    }
 }
