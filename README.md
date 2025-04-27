@@ -61,4 +61,6 @@ A full-featured blogging platform built with Node.js, Express, and EJS, featurin
 ## How to login to admin page
 I was lazy to make a login page so I just setup a URL to login with queries:
 > http://localhost:5000/admin-login?username=your_username&password=your_password
-**disclaimer**: the password stored in the .env file should encrypted using bcrypt with 10 rounds, use this website to encrypt your password: > https://bcrypt-generator.com/
+
+**disclaimer**: the password stored in the .env file should encrypted using bcrypt with 10 rounds, use this website to encrypt your password: 
+> https://bcrypt-generator.com/
